@@ -45,7 +45,7 @@ bool Point::isLocatesOn(const Line& L) const {
 bool Line::isParallelTo(const Line& L) const {
     Point RA(B - A);     // Richtungsvektor
     Point RB(L.B - L.A); // Richtungsvektor
-    Point P = RA * RB;
+    Point P(RA * RB);
     return (P == NullVector);
 }
 
@@ -62,7 +62,7 @@ Point Line::intersection(const Line& A, const Line& B) {
     //
     // xA + s * xRA = xB + t * xRB                                                                  | -xA
     // s * xRA = xB + t * xRB - xA                                                                  | :xRA
-    // s = (xB + t * xRB - xA) / xRA                                                                | Setze (xB + t * xRB - xA) / xRA für s  in yA + s * yRA = yB + t * yRB ein.
+    // s = (xB + t * xRB - xA) / xRA                                                                | Setze (xB + t * xRB - xA) / xRA fÃ¼r s  in yA + s * yRA = yB + t * yRB ein.
     // yA + ((xB + t * xRB - xA) / xRA) * yRA = yB + t * yRB                                        | TU
     // yA + (xB * yRA + t * xRB * yRA - xA * yRA) / xRA = yB + t * yRB                              | TU
     // yA + (xB * yRA) / xRA + (t * xRB * yRA) / xRA - (xA * yRA) / xRA = yB + t * yRB              | -(t * xRB * yRA) / xRA, -yB
@@ -89,7 +89,7 @@ bool isTriangle(const Line& A, const Line& B, const Line& C) {
     bool cond3;
     // Bedingung 1: Keine 2 parallelen Geraden
     cond1 = !(A.isParallelTo(B) || B.isParallelTo(C) || C.isParallelTo(A));
-    // Bedingung 2: Die Schnittpunkte der drei Geraden müssen auf den Strecken liegen
+    // Bedingung 2: Die Schnittpunkte der drei Geraden mÃ¼ssen auf den Strecken liegen
     cond2 = A.intersects(B) && B.intersects(C) && C.intersects(A);
     // Bedingung 3: Es existieren keine 2 gleichen Schnittpunkten
     Point S1 = Line::intersection(A, B);
