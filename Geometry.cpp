@@ -1,7 +1,5 @@
 #include "Geometry.hpp"
 
-#include <cmath>
-
 bool equal(const double& a, const double& b) {
     constexpr double EPSILON = 0.0001;
     double diff;
